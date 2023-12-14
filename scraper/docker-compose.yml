@@ -1,0 +1,24 @@
+version: "3.1"
+
+services:
+    tor-privoxy:
+        image: dockage/tor-privoxy
+        networks:
+            - proxy
+
+    scraper:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - ./spiders:/app/spiders:ro
+        environment:
+            - HTTP_PROXY=http://tor-privoxy:8118
+            - HTTPS_PROXY=http://tor-privoxy:8118
+        depends_on:
+            - tor-privoxy
+        networks:
+            - proxy
+
+networks:
+    proxy:
