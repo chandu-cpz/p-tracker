@@ -1,0 +1,7 @@
+scrapy
+selectolax
+scrapy-fake-useragent
+scrapy-impersonate
+pymongo
+motor
+python-dotenv

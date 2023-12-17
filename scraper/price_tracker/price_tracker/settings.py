@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # Scrapy settings for price_tracker project
 #
 # For simplicity, this file contains only settings considered important or
@@ -73,9 +76,9 @@ RANDOM_UA_PER_PROXY=True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "price_tracker.pipelines.PriceTrackerPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "price_tracker.pipelines.PriceTrackerPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -106,5 +109,30 @@ FEED_EXPORT_ENCODING = "utf-8"
 # My custom 
 DOWNLOAD_HANDLERS = {
     "http": "scrapy_impersonate.ImpersonateDownloadHandler",
-    "https": "scrapy_impersonate.ImpersonateDownloadHandler",  
+    "https": "scrapy_impersonate.ImpersonateDownloadHandler", 
 }
+
+#Mongodb settings
+MONGODB_URI = os.getenv("MONGODB_URI")
+
+#EMAIL settings
+EMAIL_ENABLED = True
+MAIL_FROM = os.getenv("MAIL_FROM")
+MAIL_HOST = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USER = os.getenv("MAIL_USER")
+MAIL_PASS = os.getenv("MAIL_PASS")
+MAIL_TLS = True
+MAIL_SSL = True
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
+USER_EMAIL = os.getenv("USER_EMAIL")
+
+
+# Set the global download delay to 1 second
+DOWNLOAD_DELAY = 2
+
+# Set the maximum number of concurrent requests per domain to 1
+CONCURRENT_REQUESTS_PER_DOMAIN = 1
+
+# Set the maximum number of concurrent requests per IP to 1
+CONCURRENT_REQUESTS_PER_IP = 1
